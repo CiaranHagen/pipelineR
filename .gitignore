@@ -1,6 +1,10 @@
 .Rproj.user
 .Rhistory
-.RData
+.Rdata
 .httr-oauth
 .DS_Store
 .quarto
+.Renviron
+*.Rproj
+/renv
+.Rprofile
