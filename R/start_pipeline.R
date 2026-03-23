@@ -3,19 +3,26 @@ start_pipeline <- function() {
   symbols <- fetch_symbols(db)
 
   #build_summary_table()
+
   output <- split_batch(symbols)
-  batches <- output[[0]]
-  nrows <- output[[1]]
+  batches <- output[[1]]
+  nrows <- length(unique(output[[2]]))
+
 
   #for each batch:
-  for (i in 1:nrows) {
+  allBatches <- yahoo_query_data(batches[[1]])
+
+  for (i in 2:nrows) {
     batch <- batches[[i]]
-    batch
-    print("---")
-    # yahoo_query_data()
+    #print(batch)
+    #print("---")
+    batch <- yahoo_query_data(batch)
+    print(batch)
+    rbind(allBatches, batch)
+    print(allBatches)
   }
 
-  #format_data()
+  format_data()
   #insert_new_data()
   #log_summary()
 
