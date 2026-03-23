@@ -8,18 +8,13 @@ start_pipeline <- function() {
   batches <- output[[1]]
   nrows <- length(unique(output[[2]]))
 
-
   #for each batch:
-  allBatches <- yahoo_query_data(batches[[1]])
+  allBatches <- tibble()
 
-  for (i in 2:nrows) {
+  for (i in 1:2) { #1:nrows
     batch <- batches[[i]]
-    #print(batch)
-    #print("---")
     batch <- yahoo_query_data(batch)
-    print(batch)
     rbind(allBatches, batch)
-    print(allBatches)
   }
 
   format_data()

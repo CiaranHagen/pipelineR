@@ -4,6 +4,6 @@ split_batch <- function(symbols) {
   nrows <- ceiling(n/chunk)
   r  <- rep(1:nrows,each=chunk)[1:n]
   batches <- split(symbols,r)
-  output <- list("batches" = batches, "nrows" = nrows)
+  output <- list("batches" = batches, "nrows" = r)
   return(output)
 }
