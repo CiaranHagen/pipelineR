@@ -15,11 +15,7 @@
 #'   \item Connects to the PostgreSQL database via \code{\link{connect_db}}
 #'   \item Fetches all unique stock symbols via \code{\link{fetch_symbols}}
 #'   \item Splits symbols into batches of 25 via \code{\link{split_batch}}
-#'   \item For each batch:
-#'     \enumerate{
-#'       \item Queries Yahoo Finance for stock prices via \code{\link{yahoo_query_data}}
-#'       \item Combines results into a single data frame
-#'     }
+#'   \item Queries Yahoo Finance for stock prices via \code{\link{yahoo_query_data}}
 #'   \item Formats the combined data via \code{\link{format_data}}
 #'   \item Inserts new records via \code{\link{insert_new_data}}
 #'   \item Disconnects from the database
@@ -72,9 +68,9 @@ start_pipeline <- function() {
   print("\nInserting new data into db...")
   finalDB <- insert_new_data(newDB, con)
 
-  #build_summary_table()
-  #log_summary()
-  #push_summary_table()
+  logTibble <- build_summary_table()
+  logSum <- log_summary(logTibble, finalDB, Sys.getenv("PG_USER"))
+  push_summary_table(logSum, con)
 
   DBI::dbDisconnect(con)
   return(finalDB)

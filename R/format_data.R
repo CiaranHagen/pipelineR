@@ -48,7 +48,7 @@
 #' # Each input row becomes 6 rows in the output
 #' DBI::dbDisconnect(con)
 #' }
-library(dplyr)
+
 format_data <- function(db, con) {
   newDB <- tibble(
             index_ts = '',

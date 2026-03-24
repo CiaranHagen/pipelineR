@@ -37,8 +37,6 @@
 #'   \item Removes grouping and returns the result
 #' }
 #'
-#' Dates are limited to yesterday (\code{Sys.Date()-1}) to avoid incomplete trading day data.
-#'
 #' @seealso
 #' \code{\link{split_batch}} for creating batches of symbols,
 #' \code{\link{format_data}} for transforming the output,
@@ -62,7 +60,6 @@
 #' dplyr::glimpse(latest_prices)
 #' }
 
-library(dplyr)
 yahoo_query_data <- function(batches) {
 
   db <- tibble::tibble()

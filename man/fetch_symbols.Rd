@@ -2,15 +2,37 @@
 % Please edit documentation in R/fetch_symbols.R
 \name{fetch_symbols}
 \alias{fetch_symbols}
-\title{Fetch symbols
-Fetches all company symbols from the db.}
+\title{Fetch S&P 500 Stock Symbols from Database}
 \usage{
 fetch_symbols(con)
 }
 \arguments{
-\item{con}{}
+\item{con}{A DBI connection object created by \code{\link{connect_db}}.}
+}
+\value{
+A tibble with a single column named \code{symbol} containing unique
+stock ticker symbols (e.g., "AAPL", "MSFT", "GOOGL").
 }
 \description{
-Fetch symbols
-Fetches all company symbols from the db.
+Retrieves all unique stock ticker symbols from the sp500.info table.
+}
+\details{
+This function executes a SQL query to fetch all stock symbols from the database
+and returns only unique values to prevent duplicate processing.
+
+The function executes the SQL query: \code{SELECT symbol FROM sp500.info;}
+and applies \code{unique()} to remove any duplicate symbols.
+}
+\examples{
+\dontrun{
+con <- connect_db()
+symbols <- fetch_symbols(con)
+head(symbols)
+nrow(symbols)  # Total number of unique symbols
+DBI::dbDisconnect(con)
+}
+}
+\seealso{
+\code{\link{connect_db}} for creating the database connection,
+\code{\link{split_batch}} for processing symbols in batches
 }

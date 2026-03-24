@@ -2,18 +2,52 @@
 % Please edit documentation in R/format_data.R
 \name{format_data}
 \alias{format_data}
-\title{Format Data
-Converts the new data into the same format as the target db.}
+\title{Format Stock Data to Long Format for Database}
 \usage{
 format_data(db, con)
 }
 \arguments{
-\item{con}{}
+\item{db}{A tibble containing raw stock price data with columns:
+\code{symbol}, \code{date}, \code{open}, \code{high}, \code{low},
+\code{close}, \code{volume}, and \code{adjusted}.}
+
+\item{con}{A DBI connection object created by \code{\link{connect_db}}.
+This is used to query the sp500.info table for symbol index timestamps.}
 }
 \value{
-df(newDB)
+A tibble with columns:
+\itemize{
+\item \code{index_ts}: The symbol's internal index timestamp
+\item \code{date}: The date of the stock price
+\item \code{metric}: The type of metric (open, high, low, close, volume, adjusted)
+\item \code{value}: The numeric value of the metric
+}
 }
 \description{
-Format Data
-Converts the new data into the same format as the target db.
+Converts wide-format stock data into long-format for database insertion.
+}
+\details{
+This function performs a wide-to-long transformation, converting individual
+price columns (open, high, low, close, volume, adjusted) into a single
+metric column with corresponding values. It also looks up the \code{index_ts}
+identifier for each symbol from the database.
+
+For each input row, the function creates 6 new rows (one per metric).
+A dataset with 1000 stock prices will have 6000 rows in the output.
+
+Progress is displayed to the console as rows are processed (e.g., "42 / 500").
+}
+\examples{
+\dontrun{
+con <- connect_db()
+# Assume 'db' contains wide-format stock data
+formatted <- format_data(db, con)
+head(formatted)
+# Each input row becomes 6 rows in the output
+DBI::dbDisconnect(con)
+}
+}
+\seealso{
+\code{\link{yahoo_query_data}} for obtaining the input data,
+\code{\link{insert_new_data}} for loading the output into the database
 }
