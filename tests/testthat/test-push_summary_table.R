@@ -11,7 +11,7 @@ test_that("push_summary_table calls DBI::dbAppendTable with 'pipeline_logs'", {
     1L
   })
 
-  pipelineR:::push_summary_table(log, mock_con)
+  pipelineR::push_summary_table(log, mock_con)
 
   expect_equal(captured_table, "pipeline_logs")
 })
