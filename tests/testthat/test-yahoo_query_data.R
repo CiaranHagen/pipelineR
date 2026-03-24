@@ -1,20 +1,3 @@
-# yahoo_query_data references `nrows` as a free variable (taken from the
-# calling environment) rather than computing it from `batches`. This is a
-# known bug: the function should derive `nrows` from `length(batches)`.
-# The helper below injects `nrows` into the package namespace for the
-# duration of each test and restores the previous state on exit.
-with_nrows <- function(n, code) {
-  ns <- getNamespace("pipelineR")
-  had_nrows <- exists("nrows", envir = ns, inherits = FALSE)
-  old_val   <- if (had_nrows) get("nrows", envir = ns) else NULL
-  assign("nrows", n, envir = ns)
-  on.exit({
-    if (had_nrows) assign("nrows", old_val, envir = ns)
-    else           remove("nrows", envir = ns)
-  }, add = TRUE)
-  force(code)
-}
-
 test_that("yahoo_query_data returns one row per symbol (the most recent date)", {
   batch   <- tibble::tibble(symbol = c("AAPL", "MSFT"))
   batches <- list(batch)
@@ -32,7 +15,7 @@ test_that("yahoo_query_data returns one row per symbol (the most recent date)", 
 
   mockery::stub(yahoo_query_data, "tidyquant::tq_get", mock_prices)
 
-  result <- with_nrows(1L, yahoo_query_data(batches))
+  result <- yahoo_query_data(batches)
 
   expect_equal(nrow(result), 2)
   expect_true("AAPL" %in% result$symbol)
@@ -56,7 +39,7 @@ test_that("yahoo_query_data selects the most recent date per symbol", {
 
   mockery::stub(yahoo_query_data, "tidyquant::tq_get", mock_prices)
 
-  result <- with_nrows(1L, yahoo_query_data(batches))
+  result <- yahoo_query_data(batches)
 
   expect_equal(nrow(result), 1)
   expect_equal(result$date, as.Date("2024-01-03"))
@@ -79,7 +62,7 @@ test_that("yahoo_query_data combines results across multiple batches", {
     )
   })
 
-  result <- with_nrows(2L, yahoo_query_data(batches))
+  result <- yahoo_query_data(batches)
 
   expect_equal(call_count, 2L)
   expect_equal(nrow(result), 2)
@@ -98,7 +81,7 @@ test_that("yahoo_query_data returns a tibble with expected stock price columns",
 
   mockery::stub(yahoo_query_data, "tidyquant::tq_get", mock_prices)
 
-  result <- with_nrows(1L, yahoo_query_data(batches))
+  result <- yahoo_query_data(batches)
 
   expect_true(all(c("symbol", "date", "open", "high", "low",
                     "close", "volume", "adjusted") %in% colnames(result)))
