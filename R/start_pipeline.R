@@ -22,7 +22,7 @@ start_pipeline <- function() {
   print("Querying additional information for each batch...")
   db <- tibble::tibble()
   for (i in 1:nrows) { #1:nrows
-    cat(i, " / ", nrows)
+    cat("\r", i, " / ", nrows)
     batch <- batches[[i]]
 
     batchComplete <- yahoo_query_data(batch)
