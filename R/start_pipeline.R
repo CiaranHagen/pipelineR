@@ -1,6 +1,6 @@
 start_pipeline <- function() {
   con <- connect_db()
-  symbols <- fetch_symbols(con)
+  symbols <- unique(fetch_symbols(con))
 
   #build_summary_table()
 
@@ -18,10 +18,10 @@ start_pipeline <- function() {
     db <- rbind(db, batchComplete)
   }
 
-  format_data(db, con)
+  newDB <- format_data(db, con)
   #insert_new_data()
-  #log_summary()
 
+  #log_summary()
   #push_summary_table()
   #dbDisconnect()
 }
