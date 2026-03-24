@@ -36,7 +36,6 @@
 #' log <- log_summary(log, inserted_data, Sys.getenv("PG_USER"))
 #' }
 
-library(dplyr)
 log_summary <- function(logTibble, finalDB, user) {
   # user_login, batch_id, symbol, status, n_rows, message, timestamp
     numRows <- nrow(finalDB)
