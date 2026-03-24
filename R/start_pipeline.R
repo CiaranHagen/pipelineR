@@ -1,6 +1,6 @@
 start_pipeline <- function() {
-  db <- connect_db()
-  symbols <- fetch_symbols(db)
+  con <- connect_db()
+  symbols <- fetch_symbols(con)
 
   #build_summary_table()
 
@@ -9,15 +9,16 @@ start_pipeline <- function() {
   nrows <- length(unique(output[[2]]))
 
   #for each batch:
-  allBatches <- tibble()
+  db <- tibble()
 
   for (i in 1:2) { #1:nrows
     batch <- batches[[i]]
-    batch <- yahoo_query_data(batch)
-    rbind(allBatches, batch)
+
+    batchComplete <- yahoo_query_data(batch)
+    db <- rbind(db, batchComplete)
   }
 
-  format_data()
+  format_data(db, con)
   #insert_new_data()
   #log_summary()
 
