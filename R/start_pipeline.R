@@ -22,15 +22,15 @@ start_pipeline <- function() {
   print("Querying additional information for each batch...")
   db <- tibble::tibble()
   for (i in 1:nrows) { #1:nrows
-    cat("\r", i, " / ", nrows)
+    cat("\r", i, "/", nrows)
     batch <- batches[[i]]
 
     batchComplete <- yahoo_query_data(batch)
     db <- rbind(db, batchComplete)
   }
-  print("Formating new data...")
+  print("\nFormating new data...")
   newDB <- format_data(db, con)
-  print("Inserting new data into db...")
+  print("\nInserting new data into db...")
   finalDB <- insert_new_data(newDB, con)
 
   #log_summary()
