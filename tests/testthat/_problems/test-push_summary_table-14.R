@@ -15,4 +15,4 @@ mockery::stub(pipelineR:::push_summary_table, "DBI::dbAppendTable", function(con
     captured_data  <<- value
     1L
   })
-pipelineR:::push_summary_table(log, mock_con)
+pipelineR::push_summary_table(log, mock_con)
