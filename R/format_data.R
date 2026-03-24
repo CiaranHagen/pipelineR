@@ -1,3 +1,13 @@
+#' Format Data
+#' Converts the new data into the same format as the target db.
+#'
+#' @param db
+#' @param con
+#'
+#' @returns df(newDB)
+#' @export
+#'
+#' @examples
 format_data <- function(db, con) {
   newDB <- tibble(
             index_ts = '',
@@ -8,7 +18,7 @@ format_data <- function(db, con) {
 
   numRows <- nrow(db)
   for (i in 1:numRows) {
-    print(i / numRows)
+    #print(i / numRows)
 
     row <- db %>% slice(i)
 

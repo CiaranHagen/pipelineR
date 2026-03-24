@@ -1,6 +1,13 @@
+#' Orchestrator
+#' Orchestrates all of the other functions.
+#'
+#' @returns nothing.
+#' @export
+#'
+#' @examples
 start_pipeline <- function() {
   con <- connect_db()
-  symbols <- unique(fetch_symbols(con))
+  symbols <- fetch_symbols(con)
 
   #build_summary_table()
 
@@ -10,7 +17,6 @@ start_pipeline <- function() {
 
   #for each batch:
   db <- tibble()
-
   for (i in 1:2) { #1:nrows
     batch <- batches[[i]]
 
@@ -19,9 +25,9 @@ start_pipeline <- function() {
   }
 
   newDB <- format_data(db, con)
-  #insert_new_data()
+  finalDB <- insert_new_data(newDB, con)
 
   #log_summary()
   #push_summary_table()
-  #dbDisconnect()
+  DBI::dbDisconnect(con)
 }

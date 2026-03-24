@@ -1,3 +1,12 @@
+#' Split df
+#' Splits the df into batches of 25 items.
+#'
+#' @param symbols
+#'
+#' @returns list(df("batches"), integer("nrows"))
+#' @export
+#'
+#' @examples
 split_batch <- function(symbols) {
   chunk <- 25
   n <- nrow(symbols)

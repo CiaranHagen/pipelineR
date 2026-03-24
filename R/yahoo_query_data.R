@@ -1,8 +1,16 @@
-library(tidyquant)
-library(dplyr)
+#' Yahooquery
+#' Queries the yahoo db for stock prices up until yesterday
+#' and then extracts the latest stock price for each item.
+#'
+#' @param batch
+#'
+#' @returns df("latest stock prices")
+#' @export
+#'
+#' @examples
 yahoo_query_data <- function(batch) {
 
-  data <- tq_get(batch,
+  data <- tidyquant::tq_get(batch,
                         get  = "stock.prices",
                         from = "2000-01-01",
                         to   = Sys.Date()-1)
