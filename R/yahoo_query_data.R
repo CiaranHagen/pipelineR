@@ -8,6 +8,8 @@
 #' @export
 #'
 #' @examples
+
+library(dplyr)
 yahoo_query_data <- function(batch) {
 
   data <- tidyquant::tq_get(batch,

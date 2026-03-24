@@ -8,6 +8,8 @@
 #' @export
 #'
 #' @examples
+
+library(dplyr)
 format_data <- function(db, con) {
   newDB <- tibble(
             index_ts = '',

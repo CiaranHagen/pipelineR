@@ -12,6 +12,6 @@ insert_new_data <- function(newDB, con) {
   oldDB <- DBI::dbGetQuery(con, "SELECT * FROM student_ciaran.data_sp500;")
   db <- dplyr::anti_join(newDB, oldDB, by = c('date', 'index_ts'))
 
-  #DBI::dbAppendTable(con, "data_sp500", db)
+  DBI::dbAppendTable(con, "data_sp500", db)
   return(db)
 }
