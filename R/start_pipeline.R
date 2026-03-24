@@ -59,17 +59,11 @@ start_pipeline <- function() {
   print("Splitting into batches...")
   output <- split_batch(symbols)
   batches <- output[[1]]
-  nrows <- length(unique(output[[2]]))
+  nrows <- output[[2]]
 
   print("Querying additional information for each batch...")
-  db <- tibble::tibble()
-  for (i in 1:nrows) { #1:nrows
-    cat("\r", i, "/", nrows)
-    batch <- batches[[i]]
+  db <- yahoo_query_data(batches)
 
-    batchComplete <- yahoo_query_data(batch)
-    db <- rbind(db, batchComplete)
-  }
 
   print("\nFormating new data...")
   newDB <- format_data(db, con)
@@ -83,4 +77,5 @@ start_pipeline <- function() {
   #push_summary_table()
 
   DBI::dbDisconnect(con)
+  return(finalDB)
 }
