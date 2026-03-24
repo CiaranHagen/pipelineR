@@ -14,3 +14,9 @@ BugReports: https://github.com/CiaranHagen/pipelineR/issues
 Imports: 
     DBI,
     RPostgres
+Suggests:
+    mockery,
+    testthat (>= 3.0.0),
+    tibble,
+    withr
+Config/testthat/edition: 3
