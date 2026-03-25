@@ -4,7 +4,7 @@ Version: 0.0.0.9000
 Authors@R: 
     person("Ciarán", "Hagen", , "ciaran.hagen@cgdis.lu", role = c("aut", "cre"))
 Description: Gets all of yesterday's stock-data.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
