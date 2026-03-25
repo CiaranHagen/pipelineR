@@ -45,7 +45,7 @@
 #' # Check console output for progress information
 #' }
 
-start_pipeline <- function() {
+start_pipeline <- function(batch_size) {
   cat("- Connecting to db...", "\n")
   con <- connect_db()
 
@@ -53,7 +53,7 @@ start_pipeline <- function() {
   symbols <- fetch_symbols(con)
 
   cat("- Splitting into batches...", "\n")
-  output <- split_batch(symbols)
+  output <- split_batch(symbols, batch_size)
   batches <- output[[1]]
   nrows <- output[[2]]
 

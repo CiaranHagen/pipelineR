@@ -31,5 +31,6 @@
 #' DBI::dbDisconnect(con)
 #' }
 push_summary_table <- function(db, con) {
-  DBI::dbAppendTable(con, "pipeline_logs", db)
+  myID <- DBI::Id(schema = "student_ciaran", table = "pipeline_logs")
+  DBI::dbAppendTable(con, myID, db)
 }

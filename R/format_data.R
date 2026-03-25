@@ -80,5 +80,11 @@ format_data <- function(db, con) {
       add_row(index_ts = index_ts, date = row$date, metric = "volume",   value = row$volume  ) %>%
       add_row(index_ts = index_ts, date = row$date, metric = "adjusted", value = row$adjusted)
   }
+  # data |>
+  #   tidyr::pivot_longer(
+  #     cols = c(open, high, low, close, adjusted, volume),
+  #     names_to = "metric",
+  #     values_to = "value"
+  #   )
   return(newDB)
 }

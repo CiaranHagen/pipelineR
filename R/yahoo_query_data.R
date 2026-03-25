@@ -70,7 +70,7 @@ yahoo_query_data <- function(batches) {
 
     data <- tidyquant::tq_get(batch,
                               get  = "stock.prices",
-                              from = "2000-01-01")
+                              from = Sys.Date()-7)
 
     batchComplete <- data %>%
       group_by(symbol) %>%
