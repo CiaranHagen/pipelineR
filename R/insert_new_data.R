@@ -53,13 +53,10 @@
 #' }
 insert_new_data <- function(newDB, con) {
   oldDB <- DBI::dbGetQuery(con, "SELECT * FROM student_ciaran.data_sp500;")
+
   finalDB <- dplyr::anti_join(newDB, oldDB, by = c('date', 'index_ts', 'metric'))
-  print(finalDB, n=1000)
-  myID <- DBI::Id(schema = schema, table = "data_sp500")
+
+  myID <- DBI::Id(schema = "student_ciaran", table = "data_sp500")
   DBI::dbAppendTable(con, myID, finalDB)
   return(finalDB)
 }
-
-#  SELECT index_ts,date,metric,value,id FROM student_ciaran.data_sp500 ORDER BY date DESC;
-
-# CREATE TABLE student_ciaran.datadev AS SELECT * FROM el_professor.data_sp500;
