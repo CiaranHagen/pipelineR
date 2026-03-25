@@ -4,7 +4,7 @@
 \alias{split_batch}
 \title{Split Symbols into Processing Batches}
 \usage{
-split_batch(symbols)
+split_batch(symbols, batch_size)
 }
 \arguments{
 \item{symbols}{A tibble containing stock symbols, typically with a

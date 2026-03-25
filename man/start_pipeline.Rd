@@ -4,7 +4,7 @@
 \alias{start_pipeline}
 \title{Execute the Complete Stock Data Pipeline}
 \usage{
-start_pipeline()
+start_pipeline(batch_size)
 }
 \value{
 Invisibly returns \code{NULL}. The function is executed for its side
