@@ -43,7 +43,9 @@ test_that("start_pipeline connects to the database, runs the pipeline, and disco
     invisible(NULL)
   })
 
-  result <- start_pipeline()
+  batch_size <- 25
+
+  result <- start_pipeline(batch_size)
 
   expect_true(disconnect_called)
   expect_identical(result, mock_inserted)

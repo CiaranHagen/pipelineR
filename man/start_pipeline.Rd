@@ -6,6 +6,9 @@
 \usage{
 start_pipeline(batch_size)
 }
+\arguments{
+\item{batch_size}{Size of batch to get at the same time.}
+}
 \value{
 Invisibly returns \code{NULL}. The function is executed for its side
 effects (database operations) and prints progress messages to the console.

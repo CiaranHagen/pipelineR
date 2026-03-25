@@ -7,7 +7,7 @@
 yahoo_query_data(batches)
 }
 \arguments{
-\item{batch}{A tibble or data frame containing stock symbols to query. Typically
+\item{batches}{A tibble or data frame containing stock symbols to query. Typically
 contains a single column named \code{symbol} with ticker symbols (e.g., "AAPL",
 "MSFT", "GOOGL").}
 }

@@ -9,6 +9,8 @@
 #' @return Invisibly returns \code{NULL}. The function is executed for its side
 #'   effects (database operations) and prints progress messages to the console.
 #'
+#' @param batch_size Size of batch to get at the same time.
+#'
 #' @details
 #' The pipeline executes the following steps:
 #' \enumerate{

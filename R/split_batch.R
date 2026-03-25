@@ -10,6 +10,8 @@
 #' @param symbols A tibble containing stock symbols, typically with a
 #'   \code{symbol} column. The function operates on the number of rows.
 #'
+#' @param batch_size An Integer containing the number of items to group per batch.
+#'
 #' @return A list containing:
 #'   \itemize{
 #'     \item \code{batches}: A list of tibbles, each containing ≤25 symbols

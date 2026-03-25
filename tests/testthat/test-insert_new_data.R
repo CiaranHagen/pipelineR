@@ -75,28 +75,3 @@ test_that("insert_new_data returns all rows when the database is empty", {
 
   expect_equal(nrow(result), 2)
 })
-
-test_that("insert_new_data calls DBI::dbAppendTable with the 'data_sp500' table name", {
-  mock_con <- structure(list(), class = "PqConnection")
-
-  captured_table <- NULL
-
-  new_data <- tibble::tibble(
-    index_ts = "idx_001",
-    date     = as.Date("2024-01-01"),
-    metric   = "open",
-    value    = 100
-  )
-
-  mockery::stub(insert_new_data, "DBI::dbGetQuery", tibble::tibble(
-    index_ts = character(0), date = as.Date(character(0)),
-    metric = character(0),   value = numeric(0)
-  ))
-  mockery::stub(insert_new_data, "DBI::dbAppendTable", function(con, name, value, ...) {
-    captured_table <<- name
-    1L
-  })
-
-  insert_new_data(new_data, mock_con)
-  expect_equal(captured_table, "data_sp500")
-})

@@ -6,7 +6,7 @@
 #' retrieve all daily stock prices from January 1, 2000 through yesterday. For each
 #' symbol in the input batch, it extracts only the most recent price record.
 #'
-#' @param batch A tibble or data frame containing stock symbols to query. Typically
+#' @param batches A tibble or data frame containing stock symbols to query. Typically
 #'   contains a single column named \code{symbol} with ticker symbols (e.g., "AAPL",
 #'   "MSFT", "GOOGL").
 #'

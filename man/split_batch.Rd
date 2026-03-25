@@ -9,6 +9,8 @@ split_batch(symbols, batch_size)
 \arguments{
 \item{symbols}{A tibble containing stock symbols, typically with a
 \code{symbol} column. The function operates on the number of rows.}
+
+\item{batch_size}{An Integer containing the number of items to group per batch.}
 }
 \value{
 A list containing:
