@@ -46,30 +46,33 @@
 #' }
 
 start_pipeline <- function() {
-  print("Connecting to db...")
+  cat("- Connecting to db...", "\n")
   con <- connect_db()
 
-  print("Fetching symbols...")
+  cat("- Fetching symbols...", "\n")
   symbols <- fetch_symbols(con)
 
-  print("Splitting into batches...")
+  cat("- Splitting into batches...", "\n")
   output <- split_batch(symbols)
   batches <- output[[1]]
   nrows <- output[[2]]
 
-  print("Querying additional information for each batch...")
+  cat("- Querying additional information for each batch...", "\n")
   db <- yahoo_query_data(batches)
 
-
-  print("\nFormating new data...")
+  cat("\n- Formating new data...\n")
   newDB <- format_data(db, con)
 
-
-  print("\nInserting new data into db...")
+  cat("\n- Inserting new data into DB...\n")
   finalDB <- insert_new_data(newDB, con)
 
+  cat("- Creating empty table...", "\n")
   logTibble <- build_summary_table()
+
+  cat("- Summing up log things...", "\n")
   logSum <- log_summary(logTibble, finalDB, Sys.getenv("PG_USER"))
+
+  cat("- Pushing logs to DB...", "\n")
   push_summary_table(logSum, con)
 
   DBI::dbDisconnect(con)

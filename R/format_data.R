@@ -59,7 +59,7 @@ format_data <- function(db, con) {
 
   numRows <- nrow(db)
   for (i in 1:numRows) {
-    cat("\r", i, "/", numRows)
+    cat("\r  ", i, "/", numRows)
 
     row <- db %>% slice(i)
 

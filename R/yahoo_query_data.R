@@ -64,8 +64,8 @@ yahoo_query_data <- function(batches) {
 
   nrows <- length(batches)
   db <- tibble::tibble()
-  for (i in 1:nrows) { #1:nrows
-    cat("\r", i, "/", nrows)
+  for (i in 1:nrows) {
+    cat("\r ", i, "/", nrows)
     batch <- batches[[i]]
 
     data <- tidyquant::tq_get(batch,
