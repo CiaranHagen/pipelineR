@@ -72,9 +72,9 @@ yahoo_query_data <- function(batches) {
                               get  = "stock.prices",
                               from = Sys.Date()-7)
 
-    batchComplete <- data %>%
-      group_by(symbol) %>%
-      slice_max(date, n = 1, with_ties = FALSE) %>%
+    batchComplete <- data |>
+      group_by(symbol) |>
+      slice_max(date, n = 1, with_ties = FALSE) |>
       ungroup()
 
     db <- rbind(db, batchComplete)
