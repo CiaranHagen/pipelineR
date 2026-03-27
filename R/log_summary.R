@@ -43,12 +43,12 @@ log_summary <- function(logTibble, finalDB, user) {
       status <- "OK"
       message <- capture.output(cat(numRows, "lines inserted."))
 
-      logTibble <- logTibble %>%
+      logTibble <- logTibble |>
         add_row(user_login = user, batch_id = 0, symbol = finalDB$index_ts, status = status, n_rows = nrow(finalDB), message = message, timestamp = Sys.Date())
     } else {
       status <- "ERROR"
       message <- "No lines inserted."
-      logTibble <- logTibble %>%
+      logTibble <- logTibble |>
         add_row(user_login = user, batch_id = 0, status = status, n_rows = nrow(finalDB), message = message, timestamp = Sys.Date())
     }
 
