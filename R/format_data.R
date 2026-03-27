@@ -61,7 +61,7 @@ format_data <- function(db, con) {
   for (i in 1:numRows) {
     cat("\r  ", i, "/", numRows)
 
-    row <- db %>% slice(i)
+    row <- db |> slice(i)
 
     symbol <- row$symbol
 
@@ -72,12 +72,12 @@ format_data <- function(db, con) {
     index_ts <- DBI::dbGetQuery(con, index_ts_query)[[1]]
 
     # index_ts, date, metric, value, id
-    newDB <- newDB %>%
-      add_row(index_ts = index_ts, date = row$date, metric = "open",     value = row$open    ) %>%
-      add_row(index_ts = index_ts, date = row$date, metric = "high",     value = row$high    ) %>%
-      add_row(index_ts = index_ts, date = row$date, metric = "low",      value = row$low     ) %>%
-      add_row(index_ts = index_ts, date = row$date, metric = "close",    value = row$close   ) %>%
-      add_row(index_ts = index_ts, date = row$date, metric = "volume",   value = row$volume  ) %>%
+    newDB <- newDB |>
+      add_row(index_ts = index_ts, date = row$date, metric = "open",     value = row$open    ) |>
+      add_row(index_ts = index_ts, date = row$date, metric = "high",     value = row$high    ) |>
+      add_row(index_ts = index_ts, date = row$date, metric = "low",      value = row$low     ) |>
+      add_row(index_ts = index_ts, date = row$date, metric = "close",    value = row$close   ) |>
+      add_row(index_ts = index_ts, date = row$date, metric = "volume",   value = row$volume  ) |>
       add_row(index_ts = index_ts, date = row$date, metric = "adjusted", value = row$adjusted)
   }
   # data |>
